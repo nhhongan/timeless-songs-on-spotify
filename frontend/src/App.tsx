@@ -18,7 +18,7 @@ function App() {
         <p>
           <b>
             This is a story about proving, with data, that  No Diggity by
-            Blackstreet  is timeless.
+            Blackstreet is timeless.
           </b>
         </p>
         <p>
