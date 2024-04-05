@@ -1,0 +1,13 @@
+services:
+  db:
+    image: mysql:8.0
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE_NAME}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    ports:
+      - '3307:3306'
+    volumes:
+      - ./timeless_song.sql:/docker-entrypoint-initdb.d/timeless_song.sql
