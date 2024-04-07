@@ -1,9 +1,12 @@
 import os
+from decouple import config
 
-config = {
-    'user': os.environ.get('DB_USERNAME', 'root'),
-    'password': os.environ.get('DB_PASSWORD', '020521'),
-    'host': os.environ.get('DB_HOST', 'localhost'),
-    'database': os.environ.get('DB_DATABASE_NAME', 'timeless_song_spotify'),
-    'port': os.environ.get('DB_PORT', '3307')
+CONFIGS = {
+    'user': config('DB_USERNAME'),
+    'password': config('DB_PASSWORD'),
+    'host': config('DB_HOST'),
+    'database': config('DB_DATABASE_NAME'),
+    'port': config('DB_PORT')
 }
+
+print(CONFIGS)

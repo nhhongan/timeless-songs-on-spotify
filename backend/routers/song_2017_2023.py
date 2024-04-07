@@ -3,30 +3,17 @@ from pydantic import BaseModel
 from database import config
 from sqlalchemy.orm import Session
 from typing import Optional, List
-from pydantic import BaseModel
-import mysql.connector
+from database.process import execute_query
+
+
 router = APIRouter(
     prefix="/song1723",
     tags=["song1723"],
 )
 
-def execute_query(query, params=None):
-    conn = mysql.connector.connect(**config)
-    cursor = conn.cursor()
-    if params:
-        cursor.execute(query, params)
-    else:
-        cursor.execute(query)
-
-    result = cursor.fetchall()
-
-    cursor.close()
-    conn.close()
-
-    return result
-@router.get("/{artist},{title},{streamcout},{year},{Genre}")
+@router.get("/{streamcount}")
 async def get_song(Genre: Optional[str]=None):
-    if Genre is None:
+    if (Genre == 'All'):
         query = "SELECT Artist, Title, Streams, Year FROM streamcount_eachyear"
         item = execute_query(query)
     else:
