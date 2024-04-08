@@ -1,8 +1,15 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.scss";
+import Scatter from "./components/Scatter";
 
 function App() {
+  const [data, setData] = useState<object[]>([]);
+  const apiPrefix = process.env.REACT_APP_API_PREFIX;
+  useEffect(() => {
+    console.log(apiPrefix)
+  });
+
   return (
     <div className="App">
       <div className="header container">
@@ -39,6 +46,9 @@ function App() {
           number of plays on Spotify, today.
         </p>
       </div>
+      {/* <Scatter data={[]}>
+        
+      </Scatter> */}
     </div>
   );
 }
