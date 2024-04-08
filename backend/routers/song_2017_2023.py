@@ -11,7 +11,7 @@ router = APIRouter(
     tags=["song1723"],
 )
 
-@router.get("/{streamcount}")
+@router.get("/streamcount")
 async def get_song(Genre: Optional[str]=None):
     if (Genre == 'All'):
         query = "SELECT Artist, Title, Streams, Year FROM streamcount_eachyear"
