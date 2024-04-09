@@ -23,7 +23,8 @@ async def get_song(Genre: Optional[str]=None):
             'artist': i[0],
             'title': i[1],
             'streams': i[2],
-            'year': i[3]}
+            'year': i[3],
+            'genre': i[4]}
             response_list.append(response_dict)
     else:
         query = "SELECT Artist, Title, Streams, Year, Genre FROM streamcount_eachyear WHERE Genre LIKE %s"
