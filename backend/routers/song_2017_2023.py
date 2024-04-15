@@ -16,7 +16,7 @@ router = APIRouter(
 async def get_song(Genre: Optional[str]=None):
     response_list = []
     if (Genre == 'All'):
-        query = "SELECT Artist, Title, Streams, Year FROM streamcount_eachyear"
+        query = "SELECT Artist, Title, Streams, Year, Genre FROM streamcount_eachyear"
         item = execute_query(query)
         for i in item:
             response_dict = {
