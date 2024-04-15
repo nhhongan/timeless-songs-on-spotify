@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import logo from "./logo.svg";
-import "./App.scss";
+import "./styles/App.scss";
 import Scatter from "./components/Scatter";
+import { Genre, fetchSongs } from "./utils/api";
 
 function App() {
-  const [data, setData] = useState<object[]>([]);
-  const apiPrefix = process.env.REACT_APP_API_PREFIX;
+  const [data, setData] = useState<any[]>([]);
   useEffect(() => {
-    console.log(apiPrefix)
-  });
+    fetchSongs(Genre.ALL).then((data) => {
+      // setData(data);
+    });
+  }, []);
 
   return (
     <div className="App">
@@ -46,9 +47,9 @@ function App() {
           number of plays on Spotify, today.
         </p>
       </div>
-      {/* <Scatter data={[]}>
-        
-      </Scatter> */}
+      <div className="chart-wrapper">
+        <Scatter data={data} />
+      </div>
     </div>
   );
 }

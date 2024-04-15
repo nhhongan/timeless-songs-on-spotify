@@ -1,28 +1,48 @@
-import React, { useEffect, useRef } from 'react';
-import * as d3 from 'd3';
+import React, { useEffect, useRef } from "react";
+import * as d3 from "d3";
+import "../styles/Scatter.scss";
 
 interface ScatterProps {
-  data: number[];
+  data: any[];
 }
 
 const Scatter: React.FC<ScatterProps> = ({ data }) => {
-  const ref = useRef<SVGSVGElement>(null);
-
-  useEffect(() => {
-    if (ref.current) {
-      const svg = d3.select(ref.current);
-      svg.selectAll('rect')
-        .data(data)
-        .join('rect')
-        .attr('x', (d, i) => i * 70)
-        .attr('y', (d) => 500 - 10 * d)
-        .attr('width', 65)
-        .attr('height', (d) => d * 10)
-        .attr('fill', 'green');
-    }
-  }, [data]);
-
-  return <svg ref={ref} />;
+  const scaledX = d3.scaleLinear().domain([0, data.length]).range([0, 800]);
+  const scaledY = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+  var xAxis = d3.axisBottom(scaledX);
+  var yAxis = d3.axisLeft(scaledY);
+  return (
+    <svg id="scatter-plot">
+      <g
+        className="x-axis"
+        ref={(el) => {
+          if (el) {
+            const svg = d3.select(el);
+            svg.call(xAxis);
+          }
+        }}
+      />
+      <g
+        className="y-axis"
+        style={{ transform: "translateX(50px)" }}
+        ref={(el) => {
+          if (el) {
+            const svg = d3.select(el);
+            svg.call(yAxis);
+          }
+        }}
+      />
+      {data.map((d, i) => (
+        <circle
+          key={i}
+          cx={scaledX(i)}
+          cy={scaledY(d.popularity)}
+          r={5}
+          fill="black"
+        />
+      ))}
+    </svg>
+  );
 };
 
 export default Scatter;
