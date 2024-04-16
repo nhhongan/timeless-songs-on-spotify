@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import "./styles/App.scss";
 import Scatter from "./components/Scatter";
 import { Genre, fetchSongs } from "./utils/api";
-
+import { Song } from "./types/Song";
 function App() {
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<Song[]>([]);
   useEffect(() => {
     fetchSongs(Genre.ALL).then((data) => {
-      // setData(data);
+      setData(data.Songs);
     });
   }, []);
 
