@@ -4,6 +4,7 @@ import { select } from "d3-selection";
 import { axisBottom, axisLeft } from "d3-axis";
 import "../styles/Scatter.scss";
 import { Song } from "../types/Song";
+import ButtonGroup from "./ButtonGroup";
 
 interface ScatterProps {
   data: Song[];
@@ -33,15 +34,16 @@ const Scatter: React.FC<ScatterProps> = ({ data }) => {
   const scaledY = scaleLinear()
     .domain([0, max(processedData, (d) => d.streams + 1) || 0])
     .range([height - margin.bottom, margin.top]);
-  
+
   const scaledArea = scaleLinear()
     .domain([
-      min(processedData, (d) => d.streams) || 0, 
-      max(processedData, (d) => d.streams) || 0])
+      min(processedData, (d) => d.streams) || 0,
+      max(processedData, (d) => d.streams) || 0,
+    ])
     .range([2, 20]);
   const xAxis = axisBottom(scaledX).tickSize(0).tickPadding(10);
   const yAxis = axisLeft(scaledY).tickSize(0).tickPadding(10);
-  
+
   useEffect(() => {
     if (!processedData.length) return;
     const svg = select(svgRef.current);
@@ -65,10 +67,23 @@ const Scatter: React.FC<ScatterProps> = ({ data }) => {
       .attr("transform", `translate(${margin.left}, 0)`)
       .call(yAxis as any);
   });
+
+  const buttons = [
+    {
+      label: 'POP',
+      onClick: () => alert('Button clicked!'),
+    },
+    {
+      label: 'ALL GENRES',
+      onClick: () => alert('All genres clicked!'),
+    },
+  ];
+
   return (
     <svg id="scatter-plot" ref={svgRef} viewBox={`0, 0 ${width}, ${height}`}>
       <g className="x-axis axis"></g>
       <g className="y-axis axis"></g>
+      <ButtonGroup buttons={buttons} x={width - margin.left - 20} y={margin.top - 50} />
       {/* Add title */}
       <text
         className="title"

@@ -1,0 +1,17 @@
+.button-group {
+  .button {
+    &:hover {
+      // Change to a lighter color when hovered
+      cursor: pointer;
+    }
+    rect {
+      fill: rgba(67, 67, 73, 1);
+      stroke: transparent;
+    }
+    text {
+      fill: rgba(118, 118, 118, 1);
+      font-weight: 700;
+      text-anchor: middle;
+    }
+  }
+}
