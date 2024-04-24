@@ -1,16 +1,6 @@
 svg {
     width: 100%;
     min-height: 100vh;
-    .axis {
-        path {
-            fill: none;
-            stroke: white;
-            // Increase the width of the axis
-            stroke-width: 3;    
-            // Modify the edge of the axis
-            shape-rendering: crispEdges;
-        }
-    }
     .title {
         // Align the title to the left
         text-anchor: start;

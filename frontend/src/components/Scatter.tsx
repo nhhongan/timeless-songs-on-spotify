@@ -27,7 +27,7 @@ const Scatter: React.FC<ScatterProps> = ({ data }) => {
     .domain([
       min(processedData, (d) => new Date(d.year.getFullYear() - 1, 0, 1)) ||
         new Date(),
-      max(processedData, (d) => d.year) || new Date(),
+      max(processedData, (d) => new Date(d.year.getFullYear(), 6)) || new Date(),
     ])
     .range([margin.left, width - margin.right]);
 
@@ -41,8 +41,11 @@ const Scatter: React.FC<ScatterProps> = ({ data }) => {
       max(processedData, (d) => d.streams) || 0,
     ])
     .range([2, 20]);
-  const xAxis = axisBottom(scaledX).tickSize(0).tickPadding(10);
-  const yAxis = axisLeft(scaledY).tickSize(0).tickPadding(10);
+  const xAxis = axisBottom(scaledX).tickSize(0).tickPadding(20);
+  const yAxis = axisLeft(scaledY)
+    .tickSize(-width + margin.left + margin.right)
+    .tickSizeOuter(0)
+    .tickPadding(10);
 
   useEffect(() => {
     if (!processedData.length) return;
