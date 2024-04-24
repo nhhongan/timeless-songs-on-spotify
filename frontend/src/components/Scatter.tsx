@@ -4,7 +4,7 @@ import { select } from "d3-selection";
 import { axisBottom, axisLeft } from "d3-axis";
 import "../styles/Scatter.scss";
 import { Song } from "../types/Song";
-import ButtonGroup from "./ButtonGroup";
+import ButtonGroup, { Button } from "./ButtonGroup";
 
 interface ScatterProps {
   data: Song[];
@@ -71,14 +71,15 @@ const Scatter: React.FC<ScatterProps> = ({ data }) => {
       .call(yAxis as any);
   });
 
-  const buttons = [
-    {
-      label: 'POP',
-      onClick: () => alert('Button clicked!'),
-    },
+  const buttons: Button[] = [
     {
       label: 'ALL GENRES',
-      onClick: () => alert('All genres clicked!'),
+      onClick: () => {},
+      active: true,
+    },
+    {
+      label: 'POP',
+      onClick: () => {},
     },
   ];
 
