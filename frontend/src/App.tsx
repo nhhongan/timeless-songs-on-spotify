@@ -4,6 +4,7 @@ import Scatter from "./components/Scatter";
 import Map from "./components/Map";
 import { Genre, fetchSongs } from "./utils/api";
 import { Song } from "./types/Song";
+import Title from "./components/Title";
 function App() {
   const [data, setData] = useState<Song[]>([]);
   useEffect(() => {
@@ -77,6 +78,7 @@ function App() {
         </p>
       </div>
       <div className="chart-wrapper">
+        <Title title="Hello" />
         <Map />
       </div>
     </div>

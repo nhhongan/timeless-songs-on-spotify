@@ -14,7 +14,11 @@ const Scatter: React.FC<ScatterProps> = ({ data }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   // Get the width and height of the svg element
   const width = svgRef.current?.getBoundingClientRect().width || 0;
-  const height = svgRef.current?.getBoundingClientRect().height || 0;
+  let height = svgRef.current?.getBoundingClientRect().height || 0;
+  // if height < 10, set height to 500
+  if (height < 800) {
+    height = 800;
+  }
   const margin = { top: 120, right: 100, bottom: 100, left: 80 };
 
   // Data preprocessing

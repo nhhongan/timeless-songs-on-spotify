@@ -17,11 +17,15 @@
   }
   .chart-wrapper {
     display: flex;
+    flex-direction: column;
     max-width: 80%;
     margin: 1em auto;
     background-color: #202121;
     padding: 2%;
     border-radius: 1em;
+    @media screen and (max-width: 768px){
+      max-width: 95%;
+    }
   }
   /* Set capital letter */
   .header {
