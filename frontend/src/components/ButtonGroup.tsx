@@ -16,7 +16,6 @@ interface ButtonGroupProps {
 }
 
 const ButtonGroup: React.FC<ButtonGroupProps> = ({ buttons, x, y }) => {
-  buttons = buttons.reverse();
   // Add active state management
   const [activeButton, setActiveButton] = useState<number | null>(null);
   // Set default active button

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./styles/App.scss";
 import Scatter from "./components/Scatter";
+import Map from "./components/Map";
 import { Genre, fetchSongs } from "./utils/api";
 import { Song } from "./types/Song";
 function App() {
@@ -74,6 +75,9 @@ function App() {
           examine every song that ever charted, 1990 - 1999, and rank them by
           number of plays on Spotify, today.
         </p>
+      </div>
+      <div className="chart-wrapper">
+        <Map />
       </div>
     </div>
   );

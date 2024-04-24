@@ -87,7 +87,7 @@ const Scatter: React.FC<ScatterProps> = ({ data }) => {
     <svg id="scatter-plot" ref={svgRef} viewBox={`0, 0 ${width}, ${height}`}>
       <g className="x-axis axis"></g>
       <g className="y-axis axis"></g>
-      <ButtonGroup buttons={buttons} x={width - margin.left - 20} y={margin.top - 50} />
+      <ButtonGroup buttons={buttons.reverse()} x={width - margin.left - 20} y={margin.top - 50} />
       {/* Add title */}
       <text
         className="title"
