@@ -11,14 +11,21 @@
     align-items: center;
     max-width: 50%;
     margin: 0 auto;
+    @media screen and (max-width: 768px){
+      max-width: 90%;
+    }
   }
   .chart-wrapper {
     display: flex;
+    flex-direction: column;
     max-width: 80%;
     margin: 1em auto;
     background-color: #202121;
-    padding: 5%;
+    padding: 2%;
     border-radius: 1em;
+    @media screen and (max-width: 768px){
+      max-width: 95%;
+    }
   }
   /* Set capital letter */
   .header {
@@ -26,6 +33,7 @@
     margin-bottom: 5em;
     h1 {
       font-size: 25px;
+      text-align: center;
       &#highlight {
         color: rgba(255, 216, 77, 1);
         font-size: 50px;
