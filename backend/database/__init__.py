@@ -1,12 +1,12 @@
-import os
 from decouple import config
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker 
+from sqlalchemy.ext.declarative import declarative_base
 
-CONFIGS = {
-    'user': config('DB_USERNAME'),
-    'password': config('DB_PASSWORD'),
-    'host': config('DB_HOST'),
-    'database': config('DB_DATABASE_NAME'),
-    'port': config('DB_PORT')
-}
+URL_DATABASE = config("DB_STRING")
 
-print(CONFIGS)
+engine = create_engine(URL_DATABASE)
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
