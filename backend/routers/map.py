@@ -43,8 +43,8 @@ async def find_song_in_country_80s(song: str,name: str, db: Session = Depends(ge
     return items
 
 
-@router.get("/get_song_top90_in_country_90s", response_model=List[MapResponse])
-async def find_song_in_country(song: str,name: str, db: Session = Depends(get_db)):
+@router.get("/get_song_top90_in_country", response_model=List[MapResponse])
+async def find_song_in_country_90s(song: str,name: str, db: Session = Depends(get_db)):
     items = db.query(Map).filter(
         and_(
         Map.Artist_and_title.like(f"%{song}%"),
