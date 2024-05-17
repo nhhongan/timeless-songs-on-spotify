@@ -25,6 +25,10 @@ class StreamCountResponse(BaseModel):
 async def get_song(genre: str, db: Session = Depends(get_db)):
     if genre == 'all':
         items = db.query(StreamCount).all()
+    elif genre == 'hiphop':
+        items = db.query(StreamCount).filter(StreamCount.Genre == 'hip hop').all()
+    elif genre == 'rb':
+        items = db.query(StreamCount).filter(StreamCount.Genre == 'r&b').all()   
     else:
         items = db.query(StreamCount).filter(StreamCount.Genre == genre).all()
 
@@ -44,5 +48,6 @@ async def get_song(year: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Items not found")
 
     return items
+
 
     
