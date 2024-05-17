@@ -20,6 +20,14 @@ class MapResponse(BaseModel):
 async def get_Country(country: str, db: Session = Depends(get_db)):
     if country == 'all':
         items = db.query(Map).all()
+    elif country == 'DominicanRepublic':
+        items = db.query(Map).filter(Map.Country == 'Dominican Republic').all()
+    elif country == 'CostaRica':
+        items = db.query(Map).filter(Map.Country == 'Costa Rica').all()    
+    elif country == 'ElSalvador':
+        items = db.query(Map).filter(Map.Country == 'El Salvador').all()  
+    elif country == 'US':
+        items = db.query(Map).filter(Map.Country == 'United States').all()
     else:
         items = db.query(Map).filter(Map.Country == country).all()
 
