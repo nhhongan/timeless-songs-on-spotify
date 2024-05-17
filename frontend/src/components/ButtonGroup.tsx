@@ -8,6 +8,7 @@ export interface Button {
   label: string;
   value: Genre;
   active?: boolean;
+  color: string;
 }
 
 interface ButtonGroupProps {

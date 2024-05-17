@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { scaleTime, scaleLinear, max, min, svg, scaleQuantize } from "d3";
+import { scaleTime, scaleLinear, max, min, svg, scaleQuantize, scaleOrdinal } from "d3";
 import { select } from "d3-selection";
 import { axisBottom, axisLeft } from "d3-axis";
 import "../styles/Scatter.scss";
@@ -11,6 +11,8 @@ interface ScatterProps {}
 
 const Scatter: React.FC<ScatterProps> = ({}) => {
   const [data, setData] = useState<Song[]>([]);
+  const [genre, setGenre] = useState<Genre>(Genre.ALL);
+  
   useEffect(() => {
     fetchSongs(Genre.ALL).then((data) => {
       setData(data);
@@ -56,27 +58,45 @@ const Scatter: React.FC<ScatterProps> = ({}) => {
       max(processedData, (d) => d.streams) || 0,
     ])
     .range([2, 20]);
-    
+  const scaledColor = scaleOrdinal<string, string>()
+    .domain([Genre.ROCK, Genre.POP, Genre.HIPHOP, Genre.LATIN])
+    .range(["#FF0000", "#00FF00", "#0000FF", "#FFFF00"]);
+
   const xAxis = axisBottom(scaledX).tickSize(0).tickPadding(20);
   const yAxis = axisLeft(scaledY)
     .tickSize(-width + margin.left + margin.right)
     .tickSizeOuter(0)
     .tickPadding(10);
-
+  
+  const filteredDataByGenre = () => {
+    if (genre === Genre.ALL) {
+      return processedData;
+    }
+    return processedData.filter((d) => d.Genre === genre);
+  }
+  
   const generateChart = () => {
     const svg = select(svgRef.current);
     svg.selectAll("circle").remove();
     svg
       .selectAll("circle")
-      .data(processedData)
+      .data(filteredDataByGenre())
       .enter()
       .append("circle")
       .attr("cx", (d) => {
         return scaledX(d.date) || 0;
       })
       .attr("cy", (d) => scaledY(d.streams) || 0)
+      .attr("r", 0)
+      .style("fill", "rgba(232, 232, 232, 1)")
+      .transition()
+      .duration(1000)
       .attr("r", (d) => scaledArea(d.streams) || 0)
-      .style("fill", "rgba(232, 232, 232, 1)");
+      .style("fill", (d) => {
+        console.log(scaledColor(d.Genre));
+        return scaledColor(d.Genre)
+      })
+      .style("opacity", 0.7);
     svg
       .select(".x-axis")
       .attr("transform", `translate(0, ${height - margin.bottom})`)
@@ -87,16 +107,14 @@ const Scatter: React.FC<ScatterProps> = ({}) => {
       .call(yAxis as any);
   }
   
-  useEffect(() => {
-    generateChart();
-  });
+  generateChart();
 
   const buttons: Button[] = [
-    { label: "All", value: Genre.ALL, active: true },
-    { label: "Rock", value: Genre.ROCK },
-    { label: "Pop", value: Genre.POP },
-    { label: "Hip Hop", value: Genre.HIPHOP },
-    { label: "Latin", value: Genre.LATIN },
+    { label: "All", value: Genre.ALL, active: true, color: scaledColor(Genre.ALL) },
+    { label: "Rock", value: Genre.ROCK, color: scaledColor(Genre.ROCK)},
+    { label: "Pop", value: Genre.POP, color: scaledColor(Genre.POP)},
+    { label: "Hip Hop", value: Genre.HIPHOP, color: scaledColor(Genre.HIPHOP)},
+    { label: "Latin", value: Genre.LATIN, color: scaledColor(Genre.LATIN)},
   ];
 
   return (
@@ -108,9 +126,8 @@ const Scatter: React.FC<ScatterProps> = ({}) => {
         x={width - margin.left - 20}
         y={margin.top - 50}
         onGenreChange={(genre: Genre) => {
-          fetchSongs(genre).then((data) => {
-            setData(data);
-          });
+          setGenre(genre);
+          generateChart();
         }}
       />
       {/* Add title */}
