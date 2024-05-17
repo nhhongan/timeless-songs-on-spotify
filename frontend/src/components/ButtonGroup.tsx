@@ -2,10 +2,11 @@
 
 import React, { useState } from 'react';
 import '../styles/ButtonGroup.scss';
+import { Genre } from '../utils/api';
 
 export interface Button {
   label: string;
-  onClick: () => void;
+  value: Genre;
   active?: boolean;
 }
 
@@ -13,9 +14,10 @@ interface ButtonGroupProps {
   buttons: Button[];
   x: number;
   y: number;
+  onGenreChange: (genre: Genre) => void;
 }
 
-const ButtonGroup: React.FC<ButtonGroupProps> = ({ buttons, x, y }) => {
+const ButtonGroup: React.FC<ButtonGroupProps> = ({ buttons, x, y, onGenreChange }) => {
   // Add active state management
   const [activeButton, setActiveButton] = useState<number | null>(null);
   // Set default active button
@@ -30,14 +32,14 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({ buttons, x, y }) => {
           key={index}
           transform={`translate(${-index * 105}, 0)`}
           onClick={() => {
-            button.onClick();
+            onGenreChange(button.value);
             setActiveButton(index);
           }}
           className={`button ${activeButton === index ? 'active' : ''}`}
         >
           <rect width="100" height="30" rx="5"/>
           <text x="50" y="20">
-            {button.label}
+            {button.label }
           </text>
         </g>
       ))}

@@ -1,16 +1,22 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { scaleTime, scaleLinear, max, min, svg, scaleQuantize } from "d3";
 import { select } from "d3-selection";
 import { axisBottom, axisLeft } from "d3-axis";
 import "../styles/Scatter.scss";
-import { Song } from "../types/Song";
 import ButtonGroup, { Button } from "./ButtonGroup";
+import { Genre, fetchSongs } from "../utils/api";
+import { Song } from "../types/Song";
 
-interface ScatterProps {
-  data: Song[];
-}
+interface ScatterProps {}
 
-const Scatter: React.FC<ScatterProps> = ({ data }) => {
+const Scatter: React.FC<ScatterProps> = ({}) => {
+  const [data, setData] = useState<Song[]>([]);
+  useEffect(() => {
+    fetchSongs(Genre.ALL).then((data) => {
+      setData(data);
+    });
+  }, []);
+
   const svgRef = useRef<SVGSVGElement | null>(null);
   // Get the width and height of the svg element
   const width = svgRef.current?.getBoundingClientRect().width || 0;
@@ -23,20 +29,25 @@ const Scatter: React.FC<ScatterProps> = ({ data }) => {
 
   // Data preprocessing
   const processedData = data
-    .map((d) => ({ ...d, year: new Date(d.year, 0, 1) }))
-    .map((d) => ({ ...d, streams: d.streams / 1000000000 }));
+    // The month is in the format "Jan", "Feb", etc. We need to convert it to a number
+    // Also add the date to the data
+    .map((d) => ({ ...d, date: new Date(d.Month + " 1, " + d.Year) }))
+    .map((d) => ({ ...d, streams: d.Streams / 1000000000 }));
 
   // Add scaling and axis
   const scaledX = scaleTime()
     .domain([
-      min(processedData, (d) => new Date(d.year.getFullYear() - 1, 0, 1)) ||
+      min(processedData, (d) => new Date(2016, 0)) ||
         new Date(),
-      max(processedData, (d) => new Date(d.year.getFullYear(), 6)) || new Date(),
+      max(
+        processedData,
+        (d) => new Date(2024, 6)
+      ) || new Date(),
     ])
     .range([margin.left, width - margin.right]);
 
   const scaledY = scaleLinear()
-    .domain([0, max(processedData, (d) => d.streams + 1) || 0])
+    .domain([0, 5])
     .range([height - margin.bottom, margin.top]);
 
   const scaledArea = scaleLinear()
@@ -45,22 +56,23 @@ const Scatter: React.FC<ScatterProps> = ({ data }) => {
       max(processedData, (d) => d.streams) || 0,
     ])
     .range([2, 20]);
+    
   const xAxis = axisBottom(scaledX).tickSize(0).tickPadding(20);
   const yAxis = axisLeft(scaledY)
     .tickSize(-width + margin.left + margin.right)
     .tickSizeOuter(0)
     .tickPadding(10);
 
-  useEffect(() => {
-    if (!processedData.length) return;
+  const generateChart = () => {
     const svg = select(svgRef.current);
+    svg.selectAll("circle").remove();
     svg
       .selectAll("circle")
       .data(processedData)
       .enter()
       .append("circle")
       .attr("cx", (d) => {
-        return scaledX(d.year) || 0;
+        return scaledX(d.date) || 0;
       })
       .attr("cy", (d) => scaledY(d.streams) || 0)
       .attr("r", (d) => scaledArea(d.streams) || 0)
@@ -73,25 +85,34 @@ const Scatter: React.FC<ScatterProps> = ({ data }) => {
       .select(".y-axis")
       .attr("transform", `translate(${margin.left}, 0)`)
       .call(yAxis as any);
+  }
+  
+  useEffect(() => {
+    generateChart();
   });
 
   const buttons: Button[] = [
-    {
-      label: 'ALL GENRES',
-      onClick: () => {},
-      active: true,
-    },
-    {
-      label: 'POP',
-      onClick: () => {},
-    },
+    { label: "All", value: Genre.ALL, active: true },
+    { label: "Rock", value: Genre.ROCK },
+    { label: "Pop", value: Genre.POP },
+    { label: "Hip Hop", value: Genre.HIPHOP },
+    { label: "Latin", value: Genre.LATIN },
   ];
 
   return (
     <svg id="scatter-plot" ref={svgRef} viewBox={`0, 0 ${width}, ${height}`}>
       <g className="x-axis axis"></g>
       <g className="y-axis axis"></g>
-      <ButtonGroup buttons={buttons.reverse()} x={width - margin.left - 20} y={margin.top - 50} />
+      <ButtonGroup
+        buttons={buttons.reverse()}
+        x={width - margin.left - 20}
+        y={margin.top - 50}
+        onGenreChange={(genre: Genre) => {
+          fetchSongs(genre).then((data) => {
+            setData(data);
+          });
+        }}
+      />
       {/* Add title */}
       <text
         className="title"

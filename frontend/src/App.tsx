@@ -1,18 +1,8 @@
-import { useEffect, useState } from "react";
 import "./styles/App.scss";
 import Scatter from "./components/Scatter";
 import Map from "./components/Map";
-import { Genre, fetchSongs } from "./utils/api";
-import { Song } from "./types/Song";
 import Title from "./components/Title";
 function App() {
-  const [data, setData] = useState<Song[]>([]);
-  useEffect(() => {
-    fetchSongs(Genre.ALL).then((data) => {
-      setData(data.Songs);
-    });
-  }, []);
-
   return (
     <div className="App">
       <div className="header container">
@@ -50,7 +40,7 @@ function App() {
         </p>
       </div>
       <div className="chart-wrapper">
-        <Scatter data={data} />
+        <Scatter />
       </div>
       <div className="text container">
         <p>
