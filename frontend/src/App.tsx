@@ -2,6 +2,7 @@ import "./styles/App.scss";
 import Scatter from "./components/Scatter";
 import Map from "./components/Map";
 import Title from "./components/Title";
+import VerticalBar from "./components/VerticalBar";
 function App() {
   return (
     <div className="App">
@@ -111,6 +112,8 @@ function App() {
           size: 25,
           alignment: "middle",
         }]} />
+        {/* <VerticalBarChart /> */}
+        <VerticalBar />
       </div>
     </div>
   );
