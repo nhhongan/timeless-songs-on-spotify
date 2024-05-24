@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import SearchBar from "./SearchBar";
-import ButtonGroup, { Button } from "./ButtonGroup";
-import { max, scaleLinear, select, scaleBand, axisBottom, axisLeft, svg, bin, scaleQuantize, extent } from "d3";
-import { Decade, fetchSongFeatures, fetchSongsByDecade } from "../utils/api";
+import { max, scaleLinear, select, axisBottom, axisLeft, bin, extent } from "d3";
+import { fetchSongFeatures } from "../utils/api";
 import "../styles/Distribution.scss";
 interface BarChartProps {}
 
