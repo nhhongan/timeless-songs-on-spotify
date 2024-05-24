@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Feature } from "../types/Feature";
 
 const PREFIX = process.env.REACT_APP_API_PREFIX;
 
@@ -33,11 +34,16 @@ export const fetchSongsByDecade = async (decade: Decade): Promise<any> => {
     });
     
   } else if (decade === Decade.EIGHTIES) {
-    const response = await axios.get(`${PREFIX}/top80/get_song_top80?song=all`);
+    const response = await axios.get(`${PREFIX}/top80_90/get_song_top80?song=all`);
     return response.data;
   } else if (decade === Decade.NINETIES) {
-    const response = await axios.get(`${PREFIX}/top90/get_song_top90?song=all`);
+    const response = await axios.get(`${PREFIX}/top80_90/get_song_top90?song=all`);
     return response.data;
   }
   return null;
 };
+
+export const fetchSongFeatures = async (): Promise<Feature[]> => {
+  const response = await axios.get(`${PREFIX}/top80_90/get_song_top80_90_by_feature`);
+  return response.data;
+}

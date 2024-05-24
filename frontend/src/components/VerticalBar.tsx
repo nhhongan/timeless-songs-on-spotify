@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import SearchBar from "./SearchBar";
 import ButtonGroup, { Button } from "./ButtonGroup";
 import { max, scaleLinear, select, scaleBand } from "d3";
 import { Decade, fetchSongsByDecade } from "../utils/api";
