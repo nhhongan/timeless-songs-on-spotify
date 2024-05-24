@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { max, scaleLinear, select, axisBottom, axisLeft, bin, extent } from "d3";
 import { fetchSongFeatures } from "../utils/api";
-import "../styles/Distribution.scss";
+import "../styles/Distribution.scss"; 
 interface BarChartProps {}
 
 interface HistogramProps {
