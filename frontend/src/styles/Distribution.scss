@@ -4,6 +4,9 @@
 .histogram {
     width: 100%;
     height: 100%;
+    background-color: black;
+    border-radius: 5px;
+    padding: 10px;
     .axis {
         path {
             fill: none;
@@ -18,7 +21,7 @@
                 font-size: 1rem;
             }
             line {
-                stroke: gray;
+                stroke: #2C2C2C;
                 stroke-width: 1;
             }
         }

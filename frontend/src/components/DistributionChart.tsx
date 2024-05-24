@@ -27,7 +27,7 @@ type FeatureGrid = {
 
 const FeatureHistogram: React.FC<HistogramProps> = ({data, color, name}) => {
   const ref = useRef<SVGSVGElement>(null);
-  const margin = { top: 20, right: 30, bottom: 40, left: 40 };
+  const margin = { top: 40, right: 30, bottom: 10, left: 20 };
   const width = ref.current?.getBoundingClientRect().width || 0;
   let height = ref.current?.getBoundingClientRect().height || 0;
   if (height < 10) {
@@ -53,13 +53,13 @@ const FeatureHistogram: React.FC<HistogramProps> = ({data, color, name}) => {
     });
 
     // Create x and y scales based on distribution data
-    var x = scaleLinear()
+    var x_scale = scaleLinear()
       .domain(
         extent(distribution_data, function (d) {
           return d.x0;
         }) as [number, number] 
       )
-      .range([0, width]);
+      .range([margin.left, width - margin.right - margin.left]);
 
     var y = scaleLinear()
       .domain([
@@ -72,22 +72,25 @@ const FeatureHistogram: React.FC<HistogramProps> = ({data, color, name}) => {
 
     // Create svg element
     const svg = select(ref.current)
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
+    svg
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+      
+    svg.selectAll("*").remove();
     // Create x-axis, with 5 ticks
     svg
       .append("g")
-      .attr("transform", `translate(0, ${height})`)
-      .call(axisBottom(x).ticks(3).tickSizeOuter(0));
+      .attr("transform", `translate(${margin.left}, ${height})`)
+      .call(axisBottom(x_scale).ticks(3).tickSizeOuter(0));
 
     // Create y-axis
-    svg.append("g").attr("class", "axis").call(
+    svg.append("g")
+    .attr("class", "axis")
+    .attr("transform", `translate(${margin.left}, 0)`)
+    .call(
       axisLeft(y)
       .ticks(4)
-      .tickSize(-width + margin.left)
+      .tickSize(-width + margin.left + margin.right)
       .tickSizeOuter(0)
     );
 
@@ -98,10 +101,10 @@ const FeatureHistogram: React.FC<HistogramProps> = ({data, color, name}) => {
       .enter()
       .append("rect")
       .attr("x", function (d) {
-        return x(d.x0);
+        return x_scale(d.x0);
       })
       .attr("width", function (d) {
-        return x(d.x1) - x(d.x0) + 1;
+        return x_scale(d.x1) - x_scale(d.x0) + 1;
       })
       .attr("y", function (d) {
         return y(d.length);
@@ -110,13 +113,23 @@ const FeatureHistogram: React.FC<HistogramProps> = ({data, color, name}) => {
         return height - y(d.length);
       })
       .style("fill", color);
+
+    // Create title
+    svg
+      .append("text")
+      .attr("x", width / 2)
+      .attr("y", - margin.top / 2 + 7)
+      .attr("text-anchor", "middle")
+      .style("font-size", "16px")
+      .style("fill", "white")
+      .text(name);
   }
 
   useEffect(() => {
     generateChart();
   }, [data]);
 
-  return <svg id='name' ref={ref}></svg>
+  return <svg id='name' ref={ref} viewBox={`0, 0, ${width} ${height}`}></svg>
 }
 
 
