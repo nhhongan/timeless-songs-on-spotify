@@ -6,19 +6,19 @@ import { Genre } from '../utils/api';
 
 export interface Button {
   label: string;
-  value: Genre;
+  value: any;
   active?: boolean;
-  color: string;
+  color?: string;
 }
 
 interface ButtonGroupProps {
   buttons: Button[];
   x: number;
   y: number;
-  onGenreChange: (genre: Genre) => void;
+  onValueChange: (value: any) => void;
 }
 
-const ButtonGroup: React.FC<ButtonGroupProps> = ({ buttons, x, y, onGenreChange }) => {
+const ButtonGroup: React.FC<ButtonGroupProps> = ({ buttons, x, y, onValueChange: onGenreChange }) => {
   // Add active state management
   const [activeButton, setActiveButton] = useState<number | null>(null);
   // Set default active button

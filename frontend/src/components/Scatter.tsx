@@ -93,7 +93,6 @@ const Scatter: React.FC<ScatterProps> = ({}) => {
       .duration(1000)
       .attr("r", (d) => scaledArea(d.streams) || 0)
       .style("fill", (d) => {
-        console.log(scaledColor(d.Genre));
         return scaledColor(d.Genre)
       })
       .style("opacity", 0.7);
@@ -125,7 +124,7 @@ const Scatter: React.FC<ScatterProps> = ({}) => {
         buttons={buttons.reverse()}
         x={width - margin.left - 20}
         y={margin.top - 50}
-        onGenreChange={(genre: Genre) => {
+        onValueChange={(genre: Genre) => {
           setGenre(genre);
           generateChart();
         }}

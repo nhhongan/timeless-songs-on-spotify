@@ -1,15 +1,19 @@
 @import 'Chart.scss';
 
 // Your additional styles for Scatter chart here
-svg.scatter-plot {
+.histogram {
     width: 100%;
     height: 100%;
+    background-color: black;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 0 auto;
     .axis {
         path {
             fill: none;
             stroke: white;
             // Increase the width of the axis
-            stroke-width: 3;    
+            stroke-width: 0;    
             // Modify the edge of the axis
             shape-rendering: crispEdges;
         }
@@ -18,7 +22,7 @@ svg.scatter-plot {
                 font-size: 1rem;
             }
             line {
-                stroke: gray;
+                stroke: #2C2C2C;
                 stroke-width: 1;
             }
         }
