@@ -46,7 +46,6 @@ async def get_song(song: str, db: Session = Depends(get_db)):
         items = db.query(top_80).all()
     else:
         items = db.query(top_80).filter(top_80.song == song).all()
-
     if not items:
         raise HTTPException(status_code=404, detail="Items not found")
 

@@ -3,6 +3,7 @@ from pydantic import BaseModel,constr
 from sqlalchemy.orm import Session
 from typing import Optional, List
 from models.map import Map
+from models.Top80sAnd90s import top_80,top_90
 from database.session import get_db
 from sqlalchemy import and_
 
@@ -15,6 +16,11 @@ router = APIRouter(
 class MapResponse(BaseModel):
     Artist_and_title: str
     Country: str
+    
+class CountryResponse(BaseModel):
+    country: str
+    song: str
+    streams: int
 
 @router.get("/getCountry", response_model=List[MapResponse])
 async def get_Country(country: str, db: Session = Depends(get_db)):
@@ -37,12 +43,12 @@ async def get_Country(country: str, db: Session = Depends(get_db)):
     return items
 
 
-@router.get("/get_song_top80_in_country", response_model=List[MapResponse])
-async def find_song_in_country_80s(song: str,name: str, db: Session = Depends(get_db)):
+@router.get("/get_song_in_country", response_model=List[MapResponse])
+async def find_song_in_country(song: str,artist: str, db: Session = Depends(get_db)):
     items = db.query(Map).filter(
         and_(
         Map.Artist_and_title.like(f"%{song}%"),
-        Map.Artist_and_title.like(f"%{name}%")
+        Map.Artist_and_title.like(f"%{artist}%")
         )
         ).all()
     if not items:
@@ -50,15 +56,18 @@ async def find_song_in_country_80s(song: str,name: str, db: Session = Depends(ge
 
     return items
 
-
-@router.get("/get_song_top90_in_country", response_model=List[MapResponse])
-async def find_song_in_country_90s(song: str,name: str, db: Session = Depends(get_db)):
-    items = db.query(Map).filter(
-        and_(
-        Map.Artist_and_title.like(f"%{song}%"),
-        Map.Artist_and_title.like(f"%{name}%")
-        )
-        ).all()
+@router.get("/get_top_song_in_country", response_model=List[CountryResponse])
+async def find_top_song_in_country(decade: str, db: Session = Depends(get_db)):
+    if decade == "80":
+        items = db.query(top_80).all()  
+    elif decade == "90":
+        items = db.query(top_90).all()
+    elif decade == "all":
+        item1 = db.query(top_80).all()
+        item2 = db.query(top_90).all()
+        if not item1 or not item2:
+            raise HTTPException(status_code=404, detail="Items not found")
+        items = item1 + item2
     if not items:
         raise HTTPException(status_code=404, detail="Items not found")
 
