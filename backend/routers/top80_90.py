@@ -88,3 +88,11 @@ async def get_song_by_rank(rank: int, db: Session = Depends(get_db)):
 
     return items
 
+@router.get("/get_song_top80_90_by_feature", response_model=List[FeatureResponse])
+async def get_song_by_feature(db: Session = Depends(get_db)):
+    items1 = db.query(top_80).all()
+    items2 = db.query(top_90).all()
+    if not items1 or not items2:
+        raise HTTPException(status_code=404, detail="Items not found")
+    all_items = items1 + items2
+    return all_items
