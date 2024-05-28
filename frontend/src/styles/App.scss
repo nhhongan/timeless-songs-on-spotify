@@ -1,0 +1,59 @@
+.App {
+  padding-top: 5em;
+  padding-bottom: 5em;
+  background: linear-gradient(180deg, #004A21 0%, #040404 30%, #000000 100%);
+  min-height: 100vh;
+  color: white;
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 50%;
+    margin: 0 auto;
+    @media screen and (max-width: 768px){
+      max-width: 90%;
+    }
+  }
+  .chart-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 80%;
+    margin: 1em auto;
+    background-color: #202121;
+    padding: 2%;
+    border-radius: 1em;
+    @media screen and (max-width: 768px){
+      max-width: 95%;
+    }
+  }
+  /* Set capital letter */
+  .header {
+    text-transform: uppercase;
+    margin-bottom: 5em;
+    h1 {
+      font-size: 25px;
+      text-align: center;
+      &#highlight {
+        color: rgba(255, 216, 77, 1);
+        font-size: 50px;
+        margin: 0;
+      }
+    }
+    p {
+      margin: 0;
+      max-width: 568px;
+      font-size: 12px;
+    }
+    a{
+      color: rgba(5, 232, 0, 1);
+    }
+  }
+  .text {
+    font-size: 20px;
+    margin-bottom: 2em;
+    p {
+      margin-top: 0;
+    }
+  }
+}
