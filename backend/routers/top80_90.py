@@ -1,11 +1,11 @@
+from typing import List, Optional
+
+from database.session import get_db
 from fastapi import APIRouter, Depends, HTTPException
+from models.map import Map
+from models.Top80sAnd90s import top_80, top_90
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
-from typing import Optional, List
-from models.Top80sAnd90s import top_80,top_90
-from models.map import Map
-from database.session import get_db
-
 
 router = APIRouter(
     prefix="/top80_90",
@@ -88,11 +88,3 @@ async def get_song_by_rank(rank: int, db: Session = Depends(get_db)):
 
     return items
 
-@router.get("/get_song_top80_90_by_feature", response_model=List[FeatureResponse])
-async def get_song_by_feature(db: Session = Depends(get_db)):
-    items1 = db.query(top_80).all()
-    items2 = db.query(top_90).all()
-    if not items1 or not items2:
-        raise HTTPException(status_code=404, detail="Items not found")
-    all_items = items1 + items2
-    return all_items
