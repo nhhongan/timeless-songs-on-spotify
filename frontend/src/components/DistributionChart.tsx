@@ -40,7 +40,6 @@ const FeatureHistogram: React.FC<HistogramProps> = ({data, color, name}) => {
     let bins = bin().thresholds(50)(data);
     // Remove all missing values
     bins = bins.filter((bin) => bin.x0 != undefined && bin.x1 != undefined);
-    console.log(bins);
     // Convert bins to distribution
     let distribution_data = bins.map((bin) => {
       return {

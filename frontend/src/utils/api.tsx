@@ -15,6 +15,7 @@ export const enum Decade {
   ALL = "all",
   EIGHTIES = "80",
   NINETIES = "90",
+  TWENTIES = "20",
 }
 
 export const fetchSongs = async (genre: Genre) => {
