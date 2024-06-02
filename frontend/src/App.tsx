@@ -69,6 +69,7 @@ function App() {
           number of plays on Spotify, today.
         </p>
       </div>
+      
       <div className="chart-wrapper">
         {/* <Title
           lines={[

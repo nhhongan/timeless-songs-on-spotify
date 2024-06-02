@@ -62,7 +62,9 @@ const Map: React.FC = () => {
     d3.json(json_link).then((geoData: any) => {
       const svg = d3.select(svgRef.current);
       // Clear the svg map
+      svg.selectAll(".table").remove();
       svg.selectAll(".map").remove();
+      
       const map = svg
         .append("g")
         .attr("class", "map")
@@ -133,7 +135,62 @@ const Map: React.FC = () => {
         })
         .attr("stroke", "black")
         .attr("stroke-width", 0.5)
-      // Add
+      // Draw the table of top songs
+      const groupedBySong = d3.group(data, (d) => d.Song);
+      // Sort the songs by stream count
+      groupedBySong.forEach((value, key) => {
+        value.sort((a, b) => b.StreamCount - a.StreamCount);
+      });
+      const table = d3.select("#map-chart").append("g").attr("class", "table");
+      table.attr("transform", `translate(${30}, ${height / 2})`);
+      table
+        .selectAll("rect")
+        .data(groupedBySong)
+        .enter()
+        .append("rect")
+        .attr("x", 10)
+        .attr("y", (d, i) => 30 + i * 20 + 12)
+        .attr("width", 15)
+        .attr("height", 15)
+        .attr("fill", (d) => colorScale(d[0]) as string);
+      
+      table
+        .selectAll("text")
+        .data(groupedBySong)
+        .enter()
+        .append("text")
+        .attr("x", 30)
+        .attr("y", (d, i) =>30 + i * 20 + 25)
+        .style("font-size", 15)
+        .style("fill", "white")
+        .text((d, i:number) => {
+          return `${i + 1}. ${d[0]}`;
+        });
+
+        table
+        .append("text")
+        .attr("x", 0)
+        .attr("y", 10)
+        .text("Top songs")
+        .style("font-size", 25)
+        .style("font-weight", "bold")
+        .style("fill", "white")
+        .style("transform", "translate(40px, 0)");
+        
+        // Add border to the table
+        table
+        .append("rect")
+        .attr("x", 0)
+        .attr("y", -20)
+        .attr("width", 200)
+        .attr("height", height / 2)
+        .attr("fill", "rgba(0, 0, 0, 0.1)")
+        .attr("stroke", "darkgreen")
+        .attr("stroke-width", 1)
+        .attr("rx", 5)
+        .attr("ry", 5);
+
+        
     });
   };
 
@@ -156,14 +213,28 @@ const Map: React.FC = () => {
       <ButtonGroup
         buttons={button}
         x={170}
-        y={height / 2 - 100}
+        y={height / 2 - 70}
         onValueChange={(value) => {
           setYear(value);
           fetchSongforMap(value).then((data) => {
             drawMap(data);
           });
         }}
-      />
+      />      
+      {/* Title */}
+      <text
+        className="title"
+        transform={`translate(${0}, 40)`}
+        fontSize={30}
+        fontWeight={500}
+      >
+        <tspan x="0" y="0" fontSize={40} fill={"lightgreen"}>
+          GEOGRAPHICAL CONTRIBUTION
+        </tspan>
+        <tspan x="0" y="1.2em">
+          TO THE TOP LISTENED SONGS IN AMERICA
+        </tspan>
+      </text>
     </svg>
   );
 };
