@@ -70,7 +70,7 @@ function App() {
         </p>
       </div>
       <div className="chart-wrapper">
-        <Title
+        {/* <Title
           lines={[
             {
               content: "#1 Songs in 50 states in the US",
@@ -79,7 +79,7 @@ function App() {
               alignment: "middle",
             },
           ]}
-        />
+        /> */}
         <Map />
       </div>
       <div className="text container">

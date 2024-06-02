@@ -18,6 +18,7 @@ export const enum Decade {
   TWENTIES = "20",
 }
 
+
 export const fetchSongs = async (genre: Genre) => {
   const response = await axios.get(
     `${PREFIX}/song1723/streamcount?genre=${genre}`
@@ -44,7 +45,16 @@ export const fetchSongsByDecade = async (decade: Decade): Promise<any> => {
   return null;
 };
 
+export const fetchSongforMap = async (year: number): Promise<any> => {
+  const response = await axios.get(`${PREFIX}/map/topresponse?year=${year}`);
+  return response.data;
+};
+
 export const fetchSongFeatures = async (): Promise<Feature[]> => {
   const response = await axios.get(`${PREFIX}/top80_90/get_song_top80_90_by_feature`);
   return response.data;
 }
+
+export const numberWithCommas = (x: string) => {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
