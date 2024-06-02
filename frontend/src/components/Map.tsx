@@ -96,6 +96,7 @@ const Map: React.FC = () => {
       // For each country, draw the map
       map
         .selectAll("path")
+        .attr("class", "country")
         .data(countries)
         .enter()
         .append("path")
@@ -152,7 +153,25 @@ const Map: React.FC = () => {
         .attr("y", (d, i) => 30 + i * 20 + 12)
         .attr("width", 15)
         .attr("height", 15)
-        .attr("fill", (d) => colorScale(d[0]) as string);
+        .attr("fill", (d) => colorScale(d[0]) as string)
+        .on("mouseover", function(event: any, d: any) {
+          const song = d[1][0].Song; // get the song of the legend item
+          // Select all paths and change their opacity
+          map.selectAll("path")
+            .transition()
+            .duration(200)
+            .style("opacity", (d: any) => {
+              const pathSong = d[1][0].properties.Song; // get the song of the path
+              return pathSong === song ? 1 : 0.3; // if the songs match, set opacity to 1, otherwise set it to 0.3
+            });
+        })
+        .on("mouseout", function(event: any, d: any) {
+          // On mouseout, reset all paths to full opacity
+          map.selectAll("path")
+            .transition()
+            .duration(200)
+            .style("opacity", 1);
+        });
       
       table
         .selectAll("text")
@@ -178,18 +197,19 @@ const Map: React.FC = () => {
         .style("transform", "translate(40px, 0)");
         
         // Add border to the table
-        table
-        .append("rect")
-        .attr("x", 0)
-        .attr("y", -20)
-        .attr("width", 200)
-        .attr("height", height / 2)
-        .attr("fill", "rgba(0, 0, 0, 0.1)")
-        .attr("stroke", "darkgreen")
-        .attr("stroke-width", 1)
-        .attr("rx", 5)
-        .attr("ry", 5);
-
+        // table
+        // .append("rect")
+        // .attr("x", 0)
+        // .attr("y", -20)
+        // .attr("z-index", -1)
+        // .attr("width", 200)
+        // .attr("height", height / 2)
+        // .attr("fill", "rgba(0, 0, 0, 0.1)")
+        // .attr("stroke", "darkgreen")
+        // .attr("stroke-width", 1)
+        // .attr("rx", 5)
+        // .attr("ry", 5);
+        
         
     });
   };
