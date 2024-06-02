@@ -96,6 +96,7 @@ async def get_top_response(year: int, db: Session = Depends(get_db)):
     ).join(Map, onclause=and_(
             Map.Artist_and_title.contains(Top1Song.Song),
             not_(Map.Artist_and_title.contains("Remix")),
+            not_(Map.Artist_and_title.contains("Ao Vivo")),
             Map.Country == Top1Song.Country,
             Map.Artist_and_title.contains(Top1Song.Artist)
             )).filter(Top1Song.Years == year).all()
