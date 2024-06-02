@@ -79,7 +79,12 @@ const Map: React.FC = () => {
 
       // Merge the topSongofContries with the countries
       countries.forEach((value: any, key) => {
-        const country = data.find((d: SongByCountry) => d.Country === key);
+        if (key === "United States of America") {
+          key = "United States";
+        }
+        const country = data.find((d: SongByCountry) => {
+          return d.Country === key
+        });
         if (country) {
           value[0].properties.Song = country.Song;
           value[0].properties.StreamCount = country.StreamCount;
@@ -124,13 +129,13 @@ const Map: React.FC = () => {
           currentElement.attr("stroke-width", 0.5);
           d3.select("#tooltip").style("display", "none");
         })
-        .attr("fill", "gray") // start with white color
+        .attr("fill", "white") // start with white color
         .transition()
-        .duration(1000)
+        .duration(500)
         .attr("fill", (d: any, i: number) => {
           const song = d[1][0].properties.Song;
           if (!song) {
-            return "gray";
+            return "#202121";
           }
           return colorScale(song) as string;
         })
