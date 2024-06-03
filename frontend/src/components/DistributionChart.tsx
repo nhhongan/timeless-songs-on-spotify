@@ -181,14 +181,8 @@ const DistributionChart: React.FC<BarChartProps> = ({}) => {
     "#FF4747",
   ];
 
-  const grid_container_style = {
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gridGap: "20px",
-  };
-
   return (
-    <div className="grid-chart" style={grid_container_style}>
+    <div className="grid-chart">
       {features.map((feature, i) => (
         <div id={feature} key={i} className="histogram" style={
           {width: "300px", height: "300px"}

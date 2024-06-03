@@ -144,23 +144,31 @@ const Map: React.FC = () => {
       // Draw the table of top songs
       const groupedBySong = d3.group(data, (d) => d.Song);
       // Sort the songs by stream count
-      groupedBySong.forEach((value, key) => {
-        value.sort((a, b) => b.StreamCount - a.StreamCount);
+      const groupedBySongArray = Array.from(groupedBySong, ([song, songByCountries]) => ({song, songByCountries}));
+
+      // Sort the array by total stream count
+      groupedBySongArray.sort((a, b) => {
+        const totalStreamsA = a.songByCountries.reduce((sum, songByCountry) => sum + songByCountry.StreamCount, 0);
+        const totalStreamsB = b.songByCountries.reduce((sum, songByCountry) => sum + songByCountry.StreamCount, 0);
+        return totalStreamsB - totalStreamsA;
       });
+
+      console.log(groupedBySongArray);
+
       const table = d3.select("#map-chart").append("g").attr("class", "table");
       table.attr("transform", `translate(${30}, ${height / 2})`);
       table
         .selectAll("rect")
-        .data(groupedBySong)
+        .data(groupedBySongArray)
         .enter()
         .append("rect")
         .attr("x", 10)
         .attr("y", (d, i) => 30 + i * 20 + 12)
         .attr("width", 15)
         .attr("height", 15)
-        .attr("fill", (d) => colorScale(d[0]) as string)
+        .attr("fill", (d) => colorScale(d.song) as string)
         .on("mouseover", function(event: any, d: any) {
-          const song = d[1][0].Song; // get the song of the legend item
+          const song = d.song; // get the song of the legend item
           // Select all paths and change their opacity
           map.selectAll("path")
             .transition()
@@ -180,7 +188,7 @@ const Map: React.FC = () => {
       
       table
         .selectAll("text")
-        .data(groupedBySong)
+        .data(groupedBySongArray)
         .enter()
         .append("text")
         .attr("x", 30)
@@ -188,7 +196,8 @@ const Map: React.FC = () => {
         .style("font-size", 15)
         .style("fill", "white")
         .text((d, i:number) => {
-          return `${i + 1}. ${d[0]}`;
+          const sum = d.songByCountries.reduce((sum, songByCountry) => sum + songByCountry.StreamCount, 0);
+          return `${i + 1}. ${d.song} - ${sum.toLocaleString()}`;
         });
 
         table
