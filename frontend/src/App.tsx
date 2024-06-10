@@ -69,27 +69,19 @@ function App() {
       </div>
       <div className="text container">
         <p>
-          <b>
-            This is a story about proving, with data, that  No Diggity by
-            Blackstreet is timeless.
-          </b>
-        </p>
-        <p>
-          Until recently, it was impossible to measure the popularity of older
-          music. Billboard charts and album sales only tell us about a song’s
-          popularity at the time of its release.
-        </p>
-        <p>
-          But now we have Spotify, a buffet of all of music, new and old. Tracks
-          with fewer plays are fading into obscurity. And those with more plays
-          are remaining in the cultural ether.
-        </p>
-        <p>
-          20 years have passed since No Diggity's release. Its popularity on
-          Spotify, relative to every other song from the 90s, is a strong signal
-          for whether it will be remembered by our children’s children. So let's
-          examine every song that ever charted, 1990 - 1999, and rank them by
-          number of plays on Spotify, today.
+        The map provides a detailed view of North and South America, with each country uniquely
+        colored to represent the top songs listened to in 2020. "Blinding Lights" emerges as 
+        the most listened song with a staggering 839,625,846 plays. Other top tracks, such as
+        "Tusa," "Safaera," and "Liberdade Provisória," follow with significantly lower playcounts. 
+
+        The geographical distribution of these songs indicates distinct listening preferences 
+        across the United States, Canada, and Mexico, where "Blinding Lights" dominates. 
+        Furthermore, the map underscores the regional diversity in musical tastes, showcasing
+        different songs that top the charts in various Latin American countries, highlighting 
+        the varied and rich musical landscape across the Americas.
+
+        Showing that while global hits exist, regional hits can also achieve significant popularity
+        within their locales.
         </p>
       </div>
       <div className="chart-wrapper">
@@ -115,11 +107,19 @@ function App() {
       </div>
       <div className="text container">
         <p>
-          40 years have passed since <b>Every breath you take</b>'s release. Its popularity on
-          Spotify, relative to every other song from the 80s, is a strong signal
-          for whether it will be remembered by our children’s children. So let's
-          examine every song that ever charted, 1980 - 1999, and rank them by
-          number of plays on Spotify, today.
+          40 years have passed since <b>Every breath you take</b>'s release. 
+          Its popularity on Spotify, relative to every other song from the 80s, 
+          is a strong signal for whether it will be remembered by our children’s children. 
+        </p>
+        <p>
+        Following far behind are classics like "I Wanna Dance with Somebody (Who Loves Me)"
+        and "Billie Jean," with 28,893,046 and 21,103,413 plays, respectively. 
+        Other notable entries include "Iris", "Sweet Child O' Mine" and "Everybody Wants to Rule the World", 
+        each with playcounts ranging between approximately 11 to 17 million. 
+        
+        The inclusion of songs like "No Scrubs" and "You're Still the One" 
+        further emphasizes the broad spectrum of popular music from the past several 
+        decades that continues to resonate with today's listeners on Spotify.
         </p>
       </div>
       <div className="chart-wrapper">
