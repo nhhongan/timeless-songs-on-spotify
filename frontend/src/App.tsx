@@ -153,6 +153,21 @@ function App() {
           music, emphasizing energetic, electronically produced, and moderately danceable tracks.
         </p>
       </div>
+
+      <div className="text container">
+        <p>
+          <b>Conclusion</b>
+        </p>
+        <p>
+          The data visualization and analysis provide valuable insights into the popularity of older music 
+          on Spotify, shedding light on the enduring appeal of classic songs and the evolving trends in 
+          contemporary music. By examining playcounts, genre distribution, geographical preferences, and 
+          feature characteristics, we can gain a comprehensive understanding of the musical landscape across 
+          different time periods and regions. These insights can inform future research on music consumption 
+          patterns, cultural preferences, and the impact of digital platforms on the preservation and 
+          dissemination of music history.
+        </p>
+      </div>
     </div>
   );
 }
