@@ -112,14 +112,14 @@ function App() {
           is a strong signal for whether it will be remembered by our children’s children. 
         </p>
         <p>
-        Following far behind are classics like "I Wanna Dance with Somebody (Who Loves Me)"
-        and "Billie Jean," with 28,893,046 and 21,103,413 plays, respectively. 
-        Other notable entries include "Iris", "Sweet Child O' Mine" and "Everybody Wants to Rule the World", 
-        each with playcounts ranging between approximately 11 to 17 million. 
+          Following far behind are classics like "I Wanna Dance with Somebody (Who Loves Me)"
+          and "Billie Jean," with 28,893,046 and 21,103,413 plays, respectively. 
+          Other notable entries include "Iris", "Sweet Child O' Mine" and "Everybody Wants to Rule the World", 
+          each with playcounts ranging between approximately 11 to 17 million. 
         
-        The inclusion of songs like "No Scrubs" and "You're Still the One" 
-        further emphasizes the broad spectrum of popular music from the past several 
-        decades that continues to resonate with today's listeners on Spotify.
+          The inclusion of songs like "No Scrubs" and "You're Still the One" 
+          further emphasizes the broad spectrum of popular music from the past several 
+          decades that continues to resonate with today's listeners on Spotify.
         </p>
       </div>
       <div className="chart-wrapper">
@@ -133,6 +133,25 @@ function App() {
             },
           ]} />
         <DistributionChart />
+      </div>
+      <div className="text container">
+        <p>
+          The "danceability" histogram shows a concentration around the mid-range values (0.4 to 0.7), 
+          indicating that most of the hits possess moderate danceability, making them suitable for both 
+          casual listening and dancing. The "energy" feature is also centered around mid to high values 
+          (0.4 to 0.8), suggesting that the hits are generally energetic and lively. The "loudness" 
+          distribution peaks between -15 dB and -5 dB, reflecting a preference for relatively loud and 
+          impactful tracks.
+
+          "Speechiness" shows a steep decline, with most values clustering below 0.1, indicating that 
+          the hits contain minimal spoken word content and are more musically focused. "Acousticness" 
+          is predominantly low (0.0 to 0.2), highlighting a trend towards electronic or digitally produced 
+          sounds rather than acoustic elements. Finally, "liveness" is concentrated at the lower end 
+          (0.0 to 0.2), implying that most tracks are likely studio recordings rather than live performances. 
+          
+          Overall, these distributions provide a snapshot of the characteristics that define current popular 
+          music, emphasizing energetic, electronically produced, and moderately danceable tracks.
+        </p>
       </div>
     </div>
   );
