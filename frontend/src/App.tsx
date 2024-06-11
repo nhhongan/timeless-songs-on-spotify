@@ -21,6 +21,8 @@ function App() {
           <b>
             This is a story about proving, with data, that  Every breath you
             take by The Police timeless.
+            This is a story about proving, with data, that  Every breath you take by
+            The Police timeless.
           </b>
         </p>
         <p>
@@ -53,6 +55,18 @@ function App() {
           the high-playcount songs suggests a dominant genre, likely pop,
           assuming standard color conventions are applied. This indicates that
           pop music continues to captivate a large audience on the platform.
+        The data visualization reveals a few standout songs with exceptionally high playcounts, 
+        approaching or even exceeding 2 billion plays, indicating their massive popularity 
+        on Spotify. 
+
+        The majority of songs, however, cluster between 0.9 to 1.8 billion playcounts, 
+        highlighting a broad base of moderately popular tracks. Interestingly, recent songs, 
+        particularly those released closer to 2023, are represented by larger dots, signifying
+        higher playcounts and suggesting a trend where newer releases rapidly accumulate streams. 
+
+        In terms of genre distribution, the predominance of green dots among the high-playcount
+        songs suggests a dominant genre, likely pop, assuming standard color conventions are applied. 
+        This indicates that pop music continues to captivate a large audience on the platform.
         </p>
       </div>
 
@@ -99,6 +113,19 @@ function App() {
         <p>
           Showing that while global hits exist, regional hits can also achieve
           significant popularity within their locales.
+        The map provides a detailed view of North and South America, with each country uniquely
+        colored to represent the top songs listened to in 2020. "Blinding Lights" emerges as 
+        the most listened song with a staggering 839,625,846 plays. Other top tracks, such as
+        "Tusa," "Safaera," and "Liberdade Provisória," follow with significantly lower playcounts. 
+
+        The geographical distribution of these songs indicates distinct listening preferences 
+        across the United States, Canada, and Mexico, where "Blinding Lights" dominates. 
+        Furthermore, the map underscores the regional diversity in musical tastes, showcasing
+        different songs that top the charts in various Latin American countries, highlighting 
+        the varied and rich musical landscape across the Americas.
+
+        Showing that while global hits exist, regional hits can also achieve significant popularity
+        within their locales.
         </p>
       </div>
       <div className="chart-wrapper">
@@ -122,6 +149,23 @@ function App() {
         {/* <VerticalBarChart /> */}
         <VerticalBar />
       </div>
+      <div className="text container">
+        <p>
+          40 years have passed since <b>Every breath you take</b>'s release. 
+          Its popularity on Spotify, relative to every other song from the 80s, 
+          is a strong signal for whether it will be remembered by our children’s children. 
+        </p>
+        <p>
+          Following far behind are classics like "I Wanna Dance with Somebody (Who Loves Me)"
+          and "Billie Jean," with 28,893,046 and 21,103,413 plays, respectively. 
+          Other notable entries include "Iris", "Sweet Child O' Mine" and "Everybody Wants to Rule the World", 
+          each with playcounts ranging between approximately 11 to 17 million. 
+        
+          The inclusion of songs like "No Scrubs" and "You're Still the One" 
+          further emphasizes the broad spectrum of popular music from the past several 
+          decades that continues to resonate with today's listeners on Spotify.
+        </p>
+      </div>
       <div className="chart-wrapper">
         <Title
           lines={[
@@ -134,6 +178,38 @@ function App() {
           ]}
         />
         <DistributionChart />
+      </div>
+      <div className="text container">
+        <p>
+          The "danceability" histogram shows a concentration around the mid-range values (0.4 to 0.7), 
+          indicating that most of the hits possess moderate danceability, making them suitable for both 
+          casual listening and dancing. The "energy" feature is also centered around mid to high values 
+          (0.4 to 0.8), suggesting that the hits are generally energetic and lively. The "loudness" 
+          distribution peaks between -15 dB and -5 dB, reflecting a preference for relatively loud and 
+          impactful tracks.
+
+          "Speechiness" shows a steep decline, with most values clustering below 0.1, indicating that 
+          the hits contain minimal spoken word content and are more musically focused. "Acousticness" 
+          is predominantly low (0.0 to 0.2), highlighting a trend towards electronic or digitally produced 
+          sounds rather than acoustic elements. Finally, "liveness" is concentrated at the lower end 
+          (0.0 to 0.2), implying that most tracks are likely studio recordings rather than live performances. 
+          
+          Overall, these distributions provide a snapshot of the characteristics that define current popular 
+          music, emphasizing energetic, electronically produced, and moderately danceable tracks.
+        </p>
+      </div>
+
+      <div className="text container">
+        <p>
+          <b>Conclusion</b>
+        </p>
+        <p>
+          The analysis demonstrates that while new songs rapidly gain high playcounts on Spotify, 
+          older hits continue to maintain significant popularity. The trends also reflect a stable 
+          genre preference over time with pop music likely being the dominant genre. Geographically, 
+          music tastes vary widely, with different regions favoring different songs, highlighting 
+          the diverse musical landscape across the Americas.
+        </p>
       </div>
     </div>
   );
